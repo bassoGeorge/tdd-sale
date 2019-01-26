@@ -17,7 +17,6 @@ public class ProductFoundTest {
     }
 
     @Test
-    @Ignore("Refactoring")
     public void secondProductFound() {
         Display display = new Display();
         Sale sale = new Sale(display);
@@ -35,7 +34,10 @@ public class ProductFoundTest {
 
 
         public void onBarcode(String barcode) {
-            display.setText("$7.99");
+            if (barcode.equals("12345"))
+                display.setText("$7.99");
+            else if (barcode.equals("23456"))
+                display.setText("$8.32");
         }
     }
 

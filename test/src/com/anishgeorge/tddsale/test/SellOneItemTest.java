@@ -1,5 +1,6 @@
 package com.anishgeorge.tddsale.test;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -10,48 +11,41 @@ import static org.junit.Assert.assertEquals;
 
 public class SellOneItemTest {
 
-    @Test
-    public void oneProductFound() {
-        Display display = new Display();
-        Sale sale = new Sale(display, new HashMap<String, String>() {{
+    private Display display;
+    private Sale sale;
+
+    @Before
+    public void setUp() {
+        display = new Display();
+        sale = new Sale(display, new HashMap<String, String>() {{
             put("12345", "$7.99");
             put("23456", "$8.32");
         }});
+    }
 
+    @Test
+    public void oneProductFound() {
         sale.onBarcode("12345");
         assertEquals("$7.99", display.getText());
     }
 
     @Test
     public void secondProductFound() {
-        Display display = new Display();
-        Sale sale = new Sale(display, new HashMap<String, String>() {{
-            put("12345", "$7.99");
-            put("23456", "$8.32");
-        }});
-
         sale.onBarcode("23456");
         assertEquals("$8.32", display.getText());
     }
 
     @Test
     public void productNotFound() {
-        Display display = new Display();
-        Sale sale = new Sale(display, new HashMap<String, String>() {{
-            put("12345", "$7.99");
-            put("23456", "$8.32");
-        }});
-
         sale.onBarcode("99999");
         assertEquals("Product not found for barcode 99999", display.getText());
     }
 
     @Test
     public void emptyBarcode() {
-        Display display = new Display();
-
         // SMELL: since empty barcode behaviour does not really depend on all the items in the constructor,
         // maybe that code should go somewhere else. Violation of the SRP
+        // SMELL signal2: selectively modifying the fixture
         Sale sale = new Sale(display, Collections.emptyMap()); // can be null as well
 
         sale.onBarcode("");

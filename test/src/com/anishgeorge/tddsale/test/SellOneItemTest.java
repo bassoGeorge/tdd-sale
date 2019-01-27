@@ -3,6 +3,9 @@ package com.anishgeorge.tddsale.test;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
 
 public class SellOneItemTest {
@@ -55,10 +58,14 @@ public class SellOneItemTest {
             if (barcode.equals("")) {
                 display.setText("Scan error: empty barcode");
             } else {
-                if (barcode.equals("12345"))
-                    display.setText("$7.99");
-                else if (barcode.equals("23456"))
-                    display.setText("$8.32");
+                Map<String, String> pricesByBarcode = new HashMap<String, String>() {{
+                    put("12345", "$7.99");
+                    put("23456", "$8.32");
+                }};
+
+                //noinspection ConstantConditions
+                if (pricesByBarcode.containsKey(barcode))
+                    display.setText(pricesByBarcode.get(barcode));
                 else
                     display.setText("Product not found for barcode " + barcode);
             }

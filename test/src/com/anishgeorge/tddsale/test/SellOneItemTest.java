@@ -17,10 +17,10 @@ public class SellOneItemTest {
     @Before
     public void setUp() {
         display = new Display();
-        sale = new Sale(display, new HashMap<String, String>() {{
+        sale = new Sale(new Catalog(new HashMap<String, String>() {{
             put("12345", "$7.99");
             put("23456", "$8.32");
-        }});
+        }}), display);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class SellOneItemTest {
         // SMELL: since empty barcode behaviour does not really depend on all the items in the constructor,
         // maybe that code should go somewhere else. Violation of the SRP
         // SMELL signal2: selectively modifying the fixture
-        Sale sale = new Sale(display, Collections.emptyMap()); // can be null as well
+        Sale sale = new Sale(new Catalog(Collections.emptyMap()), display); // can be null as well
 
         sale.onBarcode("");
         assertEquals("Scan error: empty barcode", display.getText());
@@ -56,9 +56,9 @@ public class SellOneItemTest {
         private Display display;
         private Map<String, String> pricesByBarcode;
 
-        public Sale(Display display, Map<String, String> pricesByBarcode) {
+        public Sale(Catalog catalog, Display display) {
             this.display = display;
-            this.pricesByBarcode = pricesByBarcode;
+            this.pricesByBarcode = catalog.getPricesByBarcode();
         }
 
 
@@ -104,6 +104,18 @@ public class SellOneItemTest {
 
         public void displayProductNotFoundMessage(String barcode) {
             setText("Product not found for barcode " + barcode);
+        }
+    }
+
+    public static class Catalog {
+        private final Map<String, String> pricesByBarcode;
+
+        public Catalog(Map<String, String> pricesByBarcode) {
+            this.pricesByBarcode = pricesByBarcode;
+        }
+
+        public Map<String, String> getPricesByBarcode() {
+            return pricesByBarcode;
         }
     }
 }

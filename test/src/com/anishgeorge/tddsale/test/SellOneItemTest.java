@@ -53,12 +53,12 @@ public class SellOneItemTest {
     }
 
     public static class Sale {
+        private Catalog catalog;
         private Display display;
-        private Map<String, String> pricesByBarcode;
 
         public Sale(Catalog catalog, Display display) {
+            this.catalog = catalog;
             this.display = display;
-            this.pricesByBarcode = catalog.getPricesByBarcode();
         }
 
 
@@ -68,16 +68,12 @@ public class SellOneItemTest {
                 return;
             }
 
-            String priceAsText = findPrice(barcode);
+            String priceAsText = catalog.findPrice(barcode);
             if (priceAsText == null) {
                 display.displayProductNotFoundMessage(barcode);
             } else {
                 display.displayPrice(priceAsText);
             }
-        }
-
-        private String findPrice(String barcode) {
-            return pricesByBarcode.get(barcode);
         }
 
     }
@@ -90,7 +86,7 @@ public class SellOneItemTest {
             return text;
         }
 
-        public void setText(String text) {
+        private void setText(String text) {
             this.text = text;
         }
 
@@ -114,8 +110,8 @@ public class SellOneItemTest {
             this.pricesByBarcode = pricesByBarcode;
         }
 
-        public Map<String, String> getPricesByBarcode() {
-            return pricesByBarcode;
+        private String findPrice(String barcode) {
+            return pricesByBarcode.get(barcode);
         }
     }
 }

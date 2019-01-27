@@ -86,20 +86,16 @@ public class SellOneItemTest {
             return text;
         }
 
-        private void setText(String text) {
-            this.text = text;
-        }
-
         public void displayPrice(String priceAsText) {
-            setText(priceAsText);
+            this.text = priceAsText;
         }
 
         public void displayEmptyBarcodeMessage() {
-            setText("Scan error: empty barcode");
+            this.text = "Scan error: empty barcode";
         }
 
         public void displayProductNotFoundMessage(String barcode) {
-            setText("Product not found for barcode " + barcode);
+            this.text = "Product not found for barcode " + barcode;
         }
     }
 

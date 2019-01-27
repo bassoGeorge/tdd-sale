@@ -2,6 +2,7 @@ package com.anishgeorge.tddsale.test;
 
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,10 +49,10 @@ public class SellOneItemTest {
     @Test
     public void emptyBarcode() {
         Display display = new Display();
-        Sale sale = new Sale(display, new HashMap<String, String>() {{
-            put("12345", "$7.99");
-            put("23456", "$8.32");
-        }});
+
+        // SMELL: since empty barcode behaviour does not really depend on all the items in the constructor,
+        // maybe that code should go somewhere else. Violation of the SRP
+        Sale sale = new Sale(display, Collections.emptyMap()); // can be null as well
 
         sale.onBarcode("");
         assertEquals("Scan error: empty barcode", display.getText());

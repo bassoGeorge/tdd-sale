@@ -2,4 +2,5 @@
 -- Product not found
 -- empty barcode
 [ null barcode ]
-introduce lookup table
+-- introduce lookup table
+duplicate test setup

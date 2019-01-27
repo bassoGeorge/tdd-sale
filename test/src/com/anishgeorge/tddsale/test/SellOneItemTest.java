@@ -48,9 +48,14 @@ public class SellOneItemTest {
 
     public static class Sale {
         private Display display;
+        private Map<String, String> pricesByBarcode;
 
         public Sale(Display display) {
             this.display = display;
+            this.pricesByBarcode = new HashMap<String, String>() {{
+                put("12345", "$7.99");
+                put("23456", "$8.32");
+            }};
         }
 
 
@@ -58,12 +63,6 @@ public class SellOneItemTest {
             if (barcode.equals("")) {
                 display.setText("Scan error: empty barcode");
             } else {
-                Map<String, String> pricesByBarcode = new HashMap<String, String>() {{
-                    put("12345", "$7.99");
-                    put("23456", "$8.32");
-                }};
-
-                //noinspection ConstantConditions
                 if (pricesByBarcode.containsKey(barcode))
                     display.setText(pricesByBarcode.get(barcode));
                 else

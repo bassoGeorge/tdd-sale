@@ -19,4 +19,8 @@ public class Display {
     public void displayPrice(Price price) {
         this.text = price.getFormatted();
     }
+
+    void displayNoSaleMessage() {
+        text = "No sale in progress. Try scanning a product";
+    }
 }

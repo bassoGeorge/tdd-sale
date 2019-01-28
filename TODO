@@ -4,3 +4,8 @@
 [ null barcode ]
 -- introduce lookup table
 -- duplicate test setup
+
+* Multi Product scanning
+zero products
+some found, other errors
+all found

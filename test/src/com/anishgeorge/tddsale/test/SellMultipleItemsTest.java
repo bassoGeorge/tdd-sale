@@ -13,4 +13,5 @@ public class SellMultipleItemsTest {
         sale.onTotal();
         assertEquals("No sale in progress. Try scanning a product", display.getText());
     }
+
 }

@@ -17,9 +17,9 @@ public class SellOneItemTest {
     @Before
     public void setUp() {
         display = new Display();
-        sale = new Sale(new Catalog(new HashMap<String, String>() {{
-            put("12345", "$7.99");
-            put("23456", "$8.32");
+        sale = new Sale(new Catalog(new HashMap<String, Price>() {{
+            put("12345", new Price(7.99));
+            put("23456", new Price(8.32));
         }}), display);
     }
 
@@ -52,6 +52,7 @@ public class SellOneItemTest {
         assertEquals("Scan error: empty barcode", display.getText());
     }
 
+
     public static class Sale {
         private Catalog catalog;
         private Display display;
@@ -68,11 +69,11 @@ public class SellOneItemTest {
                 return;
             }
 
-            String priceAsText = catalog.findPrice(barcode);
-            if (priceAsText == null) {
+            Price price = catalog.findPrice(barcode);
+            if (price == null) {
                 display.displayProductNotFoundMessage(barcode);
             } else {
-                display.displayPrice(priceAsText);
+                display.displayPrice(price);
             }
         }
 
@@ -86,10 +87,6 @@ public class SellOneItemTest {
             return text;
         }
 
-        public void displayPrice(String priceAsText) {
-            this.text = priceAsText;
-        }
-
         public void displayEmptyBarcodeMessage() {
             this.text = "Scan error: empty barcode";
         }
@@ -97,17 +94,21 @@ public class SellOneItemTest {
         public void displayProductNotFoundMessage(String barcode) {
             this.text = "Product not found for barcode " + barcode;
         }
+
+        public void displayPrice(Price price) {
+            this.text = price.getFormatted();
+        }
     }
 
     public static class Catalog {
-        private final Map<String, String> pricesByBarcode;
+        private Map<String, Price> priceObjByBarcode;
 
-        public Catalog(Map<String, String> pricesByBarcode) {
-            this.pricesByBarcode = pricesByBarcode;
+        public Catalog(Map<String, Price> stringPriceHashMap) {
+            priceObjByBarcode = stringPriceHashMap;
         }
 
-        private String findPrice(String barcode) {
-            return pricesByBarcode.get(barcode);
+        public Price findPrice(String barcode) {
+            return priceObjByBarcode.get(barcode);
         }
     }
 }

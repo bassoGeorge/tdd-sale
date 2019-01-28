@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -53,62 +52,4 @@ public class SellOneItemTest {
     }
 
 
-    public static class Sale {
-        private Catalog catalog;
-        private Display display;
-
-        public Sale(Catalog catalog, Display display) {
-            this.catalog = catalog;
-            this.display = display;
-        }
-
-
-        public void onBarcode(String barcode) {
-            if (barcode.equals("")) {
-                display.displayEmptyBarcodeMessage();
-                return;
-            }
-
-            Price price = catalog.findPrice(barcode);
-            if (price == null) {
-                display.displayProductNotFoundMessage(barcode);
-            } else {
-                display.displayPrice(price);
-            }
-        }
-
-    }
-
-    public static class Display {
-
-        private String text;
-
-        public String getText() {
-            return text;
-        }
-
-        public void displayEmptyBarcodeMessage() {
-            this.text = "Scan error: empty barcode";
-        }
-
-        public void displayProductNotFoundMessage(String barcode) {
-            this.text = "Product not found for barcode " + barcode;
-        }
-
-        public void displayPrice(Price price) {
-            this.text = price.getFormatted();
-        }
-    }
-
-    public static class Catalog {
-        private Map<String, Price> priceObjByBarcode;
-
-        public Catalog(Map<String, Price> stringPriceHashMap) {
-            priceObjByBarcode = stringPriceHashMap;
-        }
-
-        public Price findPrice(String barcode) {
-            return priceObjByBarcode.get(barcode);
-        }
-    }
 }

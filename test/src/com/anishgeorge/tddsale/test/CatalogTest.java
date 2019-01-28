@@ -12,7 +12,7 @@ public class CatalogTest {
     public void catalogReturnsPriceObject() {
         Price p1 = new Price(7.99);
         Price p2 = new Price(8.99);
-        SellOneItemTest.Catalog catalog = new SellOneItemTest.Catalog(new HashMap<String, Price>() {{
+        Catalog catalog = new Catalog(new HashMap<String, Price>() {{
             put("12345", p1);
             put("23456", p2);
         }});

@@ -3,6 +3,7 @@ package com.anishgeorge.tddsale.test;
 public class Sale {
     private Catalog catalog;
     private Display display;
+    private Price price;
 
     public Sale(Catalog catalog, Display display) {
         this.catalog = catalog;
@@ -16,7 +17,7 @@ public class Sale {
             return;
         }
 
-        Price price = catalog.findPrice(barcode);
+        price = catalog.findPrice(barcode);
         if (price == null) {
             display.displayProductNotFoundMessage(barcode);
         } else {
@@ -25,7 +26,11 @@ public class Sale {
     }
 
     public void onTotal() {
-        display.displayNoSaleMessage();
+        if (price == null)
+            display.displayNoSaleMessage();
+        else {
+            display.displayTotal(price);
+        }
     }
 
 }

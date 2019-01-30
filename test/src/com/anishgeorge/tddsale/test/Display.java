@@ -23,4 +23,8 @@ public class Display {
     void displayNoSaleMessage() {
         text = "No sale in progress. Try scanning a product";
     }
+
+    void displayTotal(Price price) {
+        text = "Total: " + price.getFormatted();
+    }
 }

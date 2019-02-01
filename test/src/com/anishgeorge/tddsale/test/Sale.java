@@ -1,9 +1,12 @@
 package com.anishgeorge.tddsale.test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class Sale {
     private Catalog catalog;
     private Display display;
-    private Price scannedPrice;
+    private Collection<Price> scannedPrices = new ArrayList<>();
 
     public Sale(Catalog catalog, Display display) {
         this.catalog = catalog;
@@ -17,18 +20,20 @@ public class Sale {
             return;
         }
 
-        scannedPrice = catalog.findPrice(barcode);
-        if (scannedPrice == null) {
+        Price price = catalog.findPrice(barcode);
+        scannedPrices.add(price);
+
+        if (price == null) {
             display.displayProductNotFoundMessage(barcode);
         } else {
-            display.displayPrice(scannedPrice);
+            display.displayPrice(price);
         }
     }
 
     public void onTotal() {
-        boolean saleInProgress = scannedPrice != null;
+        boolean saleInProgress = !scannedPrices.isEmpty();
         if (saleInProgress) {
-            display.displayTotal(scannedPrice);
+            display.displayTotal(scannedPrices.iterator().next());
         } else {
             display.displayNoSaleMessage();
         }

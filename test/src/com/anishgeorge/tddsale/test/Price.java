@@ -25,4 +25,8 @@ public class Price {
     public int hashCode() {
         return Objects.hash(amountInCents);
     }
+
+    public Integer getAmountInCents() {
+        return amountInCents;
+    }
 }

@@ -33,7 +33,8 @@ public class Sale {
     public void onTotal() {
         boolean saleInProgress = !scannedPrices.isEmpty();
         if (saleInProgress) {
-            display.displayTotal(scannedPrices.iterator().next());
+            Integer total = scannedPrices.stream().mapToInt(Price::getAmountInCents).sum();
+            display.displayTotal(new Price(total));
         } else {
             display.displayNoSaleMessage();
         }

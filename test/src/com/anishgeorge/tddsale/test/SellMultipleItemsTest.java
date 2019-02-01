@@ -3,6 +3,7 @@ package com.anishgeorge.tddsale.test;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -26,5 +27,23 @@ public class SellMultipleItemsTest {
         sale.onTotal();
 
         assertEquals("Total: $6.50", display.getText());
+    }
+
+    @Test
+    public void manyItemsFound() {
+        Display display = new Display();
+        Catalog catalog = new Catalog(
+                new HashMap<String, Price>() {{
+                    put("1", new Price(650));
+                    put("2", new Price(760));
+                }}
+        );
+        Sale sale = new Sale(catalog, display);
+        sale.onBarcode("1");
+        sale.onBarcode("2");
+
+        sale.onTotal();
+
+        assertEquals("Total: $14.10", display.getText());
     }
 }

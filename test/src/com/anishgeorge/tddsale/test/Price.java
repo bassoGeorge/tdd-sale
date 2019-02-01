@@ -10,7 +10,7 @@ public class Price {
     }
 
     public String getFormatted() {
-        return String.format("$%.2f", amountInCents / 100.0);
+        return String.format("$%,.2f", amountInCents / 100.0);
     }
 
     @Override

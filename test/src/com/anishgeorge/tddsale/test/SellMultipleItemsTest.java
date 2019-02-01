@@ -19,7 +19,7 @@ public class SellMultipleItemsTest {
     @Test
     public void oneItemFound() {
         Display display = new Display();
-        Catalog catalog = new Catalog(Collections.singletonMap("12345", new Price(6.5)));
+        Catalog catalog = new Catalog(Collections.singletonMap("12345", new Price(650)));
         Sale sale = new Sale(catalog, display);
         sale.onBarcode("12345");
 

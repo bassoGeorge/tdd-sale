@@ -17,8 +17,8 @@ public class ScanOneItemTest {
     public void setUp() {
         display = new Display();
         sale = new Sale(new Catalog(new HashMap<String, Price>() {{
-            put("12345", new Price(7.99));
-            put("23456", new Price(8.32));
+            put("12345", new Price(799));
+            put("23456", new Price(832));
         }}), display);
     }
 
@@ -50,6 +50,4 @@ public class ScanOneItemTest {
         sale.onBarcode("");
         assertEquals("Scan error: empty barcode", display.getText());
     }
-
-
 }

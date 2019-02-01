@@ -3,14 +3,14 @@ package com.anishgeorge.tddsale.test;
 import java.util.Objects;
 
 public class Price {
-    private Double amount;
+    private Integer amountInCents;
 
-    public Price(Double amount) {
-        this.amount = amount;
+    public Price(Integer amountInCents) {
+        this.amountInCents = amountInCents;
     }
 
     public String getFormatted() {
-        return String.format("$%.2f", amount);
+        return String.format("$%.2f", amountInCents / 100.0);
     }
 
     @Override
@@ -18,11 +18,11 @@ public class Price {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Price price = (Price) o;
-        return Objects.equals(amount, price.amount);
+        return Objects.equals(amountInCents, price.amountInCents);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(amount);
+        return Objects.hash(amountInCents);
     }
 }

@@ -32,11 +32,10 @@ public class Sale {
     }
 
     public void onTotal() {
-        boolean saleInProgress = !pendingPurchaseItemPrices.isEmpty();
-        if (saleInProgress) {
-            display.displayTotal(pendingPurchaseTotal());
-        } else {
+        if (pendingPurchaseItemPrices.isEmpty()) {
             display.displayNoSaleMessage();
+        } else {
+            display.displayTotal(pendingPurchaseTotal());
         }
     }
 

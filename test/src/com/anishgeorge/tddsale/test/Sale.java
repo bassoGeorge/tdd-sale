@@ -41,7 +41,11 @@ public class Sale {
 
     // Looks like model behaviour
     private Price pendingPurchaseTotal() {
-        return new Price(pendingPurchaseItemPrices.stream().mapToInt(Price::getAmountInCents).sum());
+        return computePurchaseTotal(pendingPurchaseItemPrices);
+    }
+
+    public static Price computePurchaseTotal(Collection<Price> purchaseItems) {
+        return new Price(purchaseItems.stream().mapToInt(Price::getAmountInCents).sum());
     }
 
 }

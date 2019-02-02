@@ -30,6 +30,18 @@ public class SellMultipleItemsTest {
     }
 
     @Test
+    public void allItemsNotFound() {
+        Display display = new Display();
+        Sale sale = new Sale(catalogWithoutBarcodes("missing barcode","second missing barcode"), display);
+
+        sale.onBarcode("missing barcode");
+        sale.onBarcode("second missing barcode");
+        sale.onTotal();
+
+        assertEquals("No sale in progress. Try scanning a product", display.getText());
+    }
+
+    @Test
     public void manyItemsFound() {
         Display display = new Display();
         Catalog catalog = new Catalog(
@@ -45,5 +57,13 @@ public class SellMultipleItemsTest {
         sale.onTotal();
 
         assertEquals("Total: $14.10", display.getText());
+    }
+
+    private Catalog catalogWithoutBarcodes(String... barcodesToExclude) {
+        return emptyCatalog();
+    }
+
+    private Catalog emptyCatalog() {
+        return new Catalog(Collections.emptyMap());
     }
 }

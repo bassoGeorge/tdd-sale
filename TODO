@@ -1,4 +1,5 @@
-Product found
-Product not found
-empty barcode
-null barcode
+Controller
+==========
+[x] Product found
+[ ] Product not found
+[ ] empty barcode

@@ -57,10 +57,6 @@ public class SellOneItemControllerTest {
         saleController.onBarcode("");
     }
 
-    public interface Catalog {
-        Price findPrice(String barcode);
-    }
-
     public interface Display {
         void displayPrice(Price price);
 

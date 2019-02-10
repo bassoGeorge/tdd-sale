@@ -25,7 +25,7 @@ public class FindPriceInMemoryCatalogTest {
     }
 
 
-    public static class InMemoryCatalog {
+    public static class InMemoryCatalog implements Catalog {
 
         private Map<String, Price> pricesByBarcode;
 

@@ -1,13 +1,17 @@
 package com.anishgeorge.tddsale.test;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class FindPriceInMemoryCatalogTest extends CatalogContract {
 
     @Override
     protected Catalog catalogWith(String barcode, Price price) {
-        return new InMemoryCatalog(Collections.singletonMap(barcode, price));
+        return new InMemoryCatalog(new HashMap<String, Price>() {{
+            put("definitely not " + barcode, Price.cents(0));
+            put(barcode, price);
+            put("again, definitely not barcode " + barcode, Price.cents(0));
+        }});
     }
 
     @Override

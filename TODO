@@ -8,7 +8,10 @@ Controller
 
 Catalog
 =======
-
+-- Catalog contract:
+	 * findPrice(barcode: String): Price
+[x]  * a non null price means the product is found and it is its price
+[x]  * a null price means that the product was not found
 
 
 

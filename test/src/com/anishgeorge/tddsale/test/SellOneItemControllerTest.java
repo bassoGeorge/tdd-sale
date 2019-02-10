@@ -45,6 +45,18 @@ public class SellOneItemControllerTest {
         saleController.onBarcode(productNotFound);
     }
 
+    @Test
+    public void emptyBarcode() {
+        final Display display = context.mock(Display.class);
+
+        context.checking(new Expectations() {{
+            oneOf(display).displayEmptyBarcodeMessage();
+        }});
+
+        final SaleController saleController = new SaleController(null, display);
+        saleController.onBarcode("");
+    }
+
     public interface Catalog {
         Price findPrice(String barcode);
     }
@@ -53,6 +65,8 @@ public class SellOneItemControllerTest {
         void displayPrice(Price price);
 
         void displayProductNotFoundMessage(String barcodeNotFound);
+
+        void displayEmptyBarcodeMessage();
     }
 
     public static class Price {
@@ -77,6 +91,11 @@ public class SellOneItemControllerTest {
         }
 
         public void onBarcode(String barcode) {
+            // SMELL. Refused bequest, Should I get an empty barcode at all?
+            if ("".equals(barcode)) {
+                display.displayEmptyBarcodeMessage();
+                return;
+            }
             Price price = catalog.findPrice(barcode);
             if (price == null) display.displayProductNotFoundMessage(barcode);
             else display.displayPrice(price);

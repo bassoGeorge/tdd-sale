@@ -1,34 +1,17 @@
 package com.anishgeorge.tddsale.test;
 
-import org.junit.Test;
-
 import java.util.Collections;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+public class FindPriceInMemoryCatalogTest extends CatalogContract {
 
-public class FindPriceInMemoryCatalogTest {
-    @Test
-    public void productFound() {
-
-        Price foundPrice = Price.cents(1250);
-
-        Catalog catalog = catalogWith("12345", foundPrice);
-
-        assertEquals(foundPrice, catalog.findPrice("12345"));
-    }
-
-    private Catalog catalogWith(String barcode, Price price) {
+    @Override
+    protected Catalog catalogWith(String barcode, Price price) {
         return new InMemoryCatalog(Collections.singletonMap(barcode, price));
     }
 
-    @Test
-    public void productNotFound() {
-        Catalog catalog = catalogWithout("12345");
-        assertEquals(null, catalog.findPrice("12345"));
-    }
-
-    private Catalog catalogWithout(String barcodeToAvoid) {
+    @Override
+    protected Catalog catalogWithout(String barcodeToAvoid) {
         return catalogWith("anything but " + barcodeToAvoid, Price.cents(0));
     }
 

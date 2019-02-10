@@ -29,7 +29,7 @@ public class FindPriceInMemoryCatalogTest {
     }
 
     private Catalog catalogWithout(String barcodeToAvoid) {
-        return new InMemoryCatalog(Collections.emptyMap());
+        return catalogWith("anything but " + barcodeToAvoid, Price.cents(0));
     }
 
 

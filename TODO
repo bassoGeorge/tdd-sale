@@ -1,5 +1,24 @@
 Controller
 ==========
 [x] Product found
-[ ] Product not found
+[x] Product not found
 [ ] empty barcode
+
+
+
+Catalog
+=======
+
+
+
+
+Display
+=======
+
+
+
+
+
+Price
+=====
+[ ] Value object

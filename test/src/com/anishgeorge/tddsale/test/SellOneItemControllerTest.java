@@ -13,8 +13,8 @@ public class SellOneItemControllerTest {
 
     @Test
     public void productFound() {
-        Catalog catalog = context.mock(Catalog.class);
-        Display display = context.mock(Display.class);
+        final Catalog catalog = context.mock(Catalog.class);
+        final Display display = context.mock(Display.class);
         Price irrelavantPrice = Price.cents(795); // So that we don't have to worry about value semantics just right now
 
         context.checking(new Expectations() {{
@@ -24,9 +24,25 @@ public class SellOneItemControllerTest {
             oneOf(display).displayPrice(with(irrelavantPrice));
         }});
 
-        SaleController saleController = new SaleController(catalog, display);
+        final SaleController saleController = new SaleController(catalog, display);
         saleController.onBarcode("12345");
+    }
 
+    @Test
+    public void productNotFound() {
+        final Catalog catalog = context.mock(Catalog.class);
+        final Display display = context.mock(Display.class);
+        final String productNotFound = "::product not found::";
+
+        context.checking(new Expectations() {{
+            allowing(catalog).findPrice(with(productNotFound));
+            will(returnValue(null));
+
+            oneOf(display).displayProductNotFoundMessage(with(productNotFound));
+        }});
+
+        final SaleController saleController = new SaleController(catalog, display);
+        saleController.onBarcode(productNotFound);
     }
 
     public interface Catalog {
@@ -35,6 +51,8 @@ public class SellOneItemControllerTest {
 
     public interface Display {
         void displayPrice(Price price);
+
+        void displayProductNotFoundMessage(String barcodeNotFound);
     }
 
     public static class Price {
@@ -59,7 +77,9 @@ public class SellOneItemControllerTest {
         }
 
         public void onBarcode(String barcode) {
-            display.displayPrice(catalog.findPrice(barcode));
+            Price price = catalog.findPrice(barcode);
+            if (price == null) display.displayProductNotFoundMessage(barcode);
+            else display.displayPrice(price);
         }
     }
 }

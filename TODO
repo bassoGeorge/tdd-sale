@@ -31,5 +31,5 @@ Price
 Console Display
 ===============
 [ ] Price
-[ ] Product not found
-[ ] Empty barcode
+[x] Product not found
+[x] Empty barcode

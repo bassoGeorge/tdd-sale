@@ -38,10 +38,27 @@ public class DisplayMessagesToConsoleTest {
         );
     }
 
+    @Test
+    public void emptyBarcodeMessage() throws UnsupportedEncodingException {
+        ByteArrayOutputStream canvas = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(canvas));
+
+        new ConsoleDisplay().displayEmptyBarcodeMessage();
+
+        assertEquals(
+                Arrays.asList("Scanning error: empty barcode"),
+                TextUtilities.lines(canvas.toString("UTF-8"))
+        );
+    }
+
     public static class ConsoleDisplay {
 
         public void displayProductNotFoundMessage(String barcodeNotFound) {
             System.out.println(String.format("Product not found for %s", barcodeNotFound));
+        }
+
+        public void displayEmptyBarcodeMessage() {
+            System.out.println("Scanning error: empty barcode");
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.anishgeorge.tddsale.test;
 
-public class ConsoleDisplay {
+public class EnglishLanguageConsoleDisplay implements Display {
 
     public void displayProductNotFoundMessage(String barcodeNotFound) {
         displayMessage("Product not found for %s", barcodeNotFound);

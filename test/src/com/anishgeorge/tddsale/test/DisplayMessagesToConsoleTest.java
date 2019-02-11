@@ -30,7 +30,7 @@ public class DisplayMessagesToConsoleTest {
         ByteArrayOutputStream canvas = new ByteArrayOutputStream();
         System.setOut(new PrintStream(canvas));
 
-        new ConsoleDisplay().displayProductNotFoundMessage("23");
+        new EnglishLanguageConsoleDisplay().displayProductNotFoundMessage("23");
 
         assertEquals(
                 Arrays.asList("Product not found for 23"),
@@ -43,7 +43,7 @@ public class DisplayMessagesToConsoleTest {
         ByteArrayOutputStream canvas = new ByteArrayOutputStream();
         System.setOut(new PrintStream(canvas));
 
-        new ConsoleDisplay().displayEmptyBarcodeMessage();
+        new EnglishLanguageConsoleDisplay().displayEmptyBarcodeMessage();
 
         assertEquals(
                 Arrays.asList("Scanning error: empty barcode"),
@@ -56,11 +56,11 @@ public class DisplayMessagesToConsoleTest {
         ByteArrayOutputStream canvas = new ByteArrayOutputStream();
         System.setOut(new PrintStream(canvas));
 
-        ConsoleDisplay consoleDisplay = new ConsoleDisplay();
+        EnglishLanguageConsoleDisplay englishLanguageConsoleDisplay = new EnglishLanguageConsoleDisplay();
 
-        consoleDisplay.displayProductNotFoundMessage("23");
-        consoleDisplay.displayEmptyBarcodeMessage();
-        consoleDisplay.displayProductNotFoundMessage("1234");
+        englishLanguageConsoleDisplay.displayProductNotFoundMessage("23");
+        englishLanguageConsoleDisplay.displayEmptyBarcodeMessage();
+        englishLanguageConsoleDisplay.displayProductNotFoundMessage("1234");
 
         assertEquals(
                 Arrays.asList(

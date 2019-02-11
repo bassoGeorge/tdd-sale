@@ -3,17 +3,19 @@ package com.anishgeorge.tddsale.test;
 public class ConsoleDisplay {
 
     public void displayProductNotFoundMessage(String barcodeNotFound) {
-        System.out.println(
-                String.format("Product not found for %s", barcodeNotFound));
+        displayMessage("Product not found for %s", barcodeNotFound);
     }
 
     public void displayEmptyBarcodeMessage() {
-        System.out.println(
-                String.format("Scanning error: empty barcode"));
+        displayMessage("Scanning error: empty barcode");
     }
 
     public void displayPrice(Price price) {
-        System.out.println(
-                String.format("$%,.2f", price.dollarValue()));
+        displayMessage("$%,.2f", price.dollarValue());
     }
+
+    private void displayMessage(String format, Object... placeholderValues) {
+        System.out.println(String.format(format, placeholderValues));
+    }
+
 }

@@ -15,7 +15,15 @@ public class ConsoleDisplay {
     }
 
     private void displayMessage(String format, Object... placeholderValues) {
-        System.out.println(String.format(format, placeholderValues));
+        render(mergeTemplate(format, placeholderValues));
+    }
+
+    private void render(String merged) {
+        System.out.println(merged);
+    }
+
+    private String mergeTemplate(String format, Object[] placeholderValues) {
+        return String.format(format, placeholderValues);
     }
 
 }

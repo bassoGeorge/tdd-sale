@@ -1,5 +1,7 @@
 package com.anishgeorge.tddsale.test;
 
+import com.anishgeorge.tddsale.Catalog;
+import com.anishgeorge.tddsale.Price;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

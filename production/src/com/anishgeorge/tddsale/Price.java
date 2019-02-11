@@ -1,4 +1,4 @@
-package com.anishgeorge.tddsale.test;
+package com.anishgeorge.tddsale;
 
 public class Price {
 

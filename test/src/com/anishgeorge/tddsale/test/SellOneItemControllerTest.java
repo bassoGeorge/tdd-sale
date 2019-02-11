@@ -1,5 +1,9 @@
 package com.anishgeorge.tddsale.test;
 
+import com.anishgeorge.tddsale.Catalog;
+import com.anishgeorge.tddsale.Display;
+import com.anishgeorge.tddsale.Price;
+import com.anishgeorge.tddsale.SaleController;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
@@ -57,24 +61,4 @@ public class SellOneItemControllerTest {
         saleController.onBarcode("");
     }
 
-    public static class SaleController {
-        private Display display;
-        private Catalog catalog;
-
-        public SaleController(Catalog catalog, Display display) {
-            this.display = display;
-            this.catalog = catalog;
-        }
-
-        public void onBarcode(String barcode) {
-            // SMELL. Refused bequest, Should I get an empty barcode at all?
-            if ("".equals(barcode)) {
-                display.displayEmptyBarcodeMessage();
-                return;
-            }
-            Price price = catalog.findPrice(barcode);
-            if (price == null) display.displayProductNotFoundMessage(barcode);
-            else display.displayPrice(price);
-        }
-    }
 }

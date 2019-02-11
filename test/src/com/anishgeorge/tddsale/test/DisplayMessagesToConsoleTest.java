@@ -1,5 +1,6 @@
 package com.anishgeorge.tddsale.test;
 
+import com.anishgeorge.tddsale.EnglishLanguageConsoleDisplay;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

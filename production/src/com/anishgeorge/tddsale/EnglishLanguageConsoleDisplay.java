@@ -1,4 +1,7 @@
-package com.anishgeorge.tddsale.test;
+package com.anishgeorge.tddsale;
+
+import com.anishgeorge.tddsale.Display;
+import com.anishgeorge.tddsale.Price;
 
 public class EnglishLanguageConsoleDisplay implements Display {
 

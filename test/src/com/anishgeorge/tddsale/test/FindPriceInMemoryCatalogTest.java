@@ -1,7 +1,10 @@
 package com.anishgeorge.tddsale.test;
 
+import com.anishgeorge.tddsale.Catalog;
+import com.anishgeorge.tddsale.InMemoryCatalog;
+import com.anishgeorge.tddsale.Price;
+
 import java.util.HashMap;
-import java.util.Map;
 
 public class FindPriceInMemoryCatalogTest extends CatalogContract {
 
@@ -20,17 +23,4 @@ public class FindPriceInMemoryCatalogTest extends CatalogContract {
     }
 
 
-    public static class InMemoryCatalog implements Catalog {
-
-        private Map<String, Price> pricesByBarcode;
-
-        public InMemoryCatalog(Map<String, Price> pricesByBarcode) {
-            this.pricesByBarcode = pricesByBarcode;
-        }
-
-        public Price findPrice(String barcode) {
-            return pricesByBarcode.get(barcode);
-        }
-
-    }
 }

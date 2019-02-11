@@ -72,14 +72,4 @@ public class DisplayMessagesToConsoleTest {
         );
     }
 
-    public static class ConsoleDisplay {
-
-        public void displayProductNotFoundMessage(String barcodeNotFound) {
-            System.out.println(String.format("Product not found for %s", barcodeNotFound));
-        }
-
-        public void displayEmptyBarcodeMessage() {
-            System.out.println("Scanning error: empty barcode");
-        }
-    }
 }

@@ -1,9 +1,14 @@
 package com.anishgeorge.tddsale.test;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -13,10 +18,21 @@ import static org.junit.Assert.assertEquals;
 public class PriceFormattingTest {
     private final Integer priceInCents;
     private final String expectedFormattedPrice;
+    public PrintStream prodSystemOut;
 
     public PriceFormattingTest(Integer priceInCents, String expectedFormattedPrice) {
         this.priceInCents = priceInCents;
         this.expectedFormattedPrice = expectedFormattedPrice;
+    }
+
+    @Before
+    public void rememberSystemOut() throws Exception {
+        prodSystemOut = System.out;
+    }
+
+    @After
+    public void restoreSystemOut() throws Exception {
+        System.setOut(prodSystemOut);
     }
 
     @Parameterized.Parameters(name = "{index} Monetary amount {0} formats to {1}")
@@ -34,12 +50,16 @@ public class PriceFormattingTest {
     }
 
     @Test
-    public void formatShouldWork() {
-        assertEquals(expectedFormattedPrice, format(Price.cents(priceInCents)));
-    }
+    public void formatShouldWork() throws UnsupportedEncodingException {
+        ByteArrayOutputStream canvas = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(canvas));
 
-    public static String format(Price price) {
-        return String.format("$%,.2f", price.dollarValue());
+        new ConsoleDisplay().displayPrice(Price.cents(priceInCents));
+
+        assertEquals(
+                Arrays.asList(expectedFormattedPrice),
+                TextUtilities.lines(canvas.toString("UTF-8"))
+        );
     }
 
 }

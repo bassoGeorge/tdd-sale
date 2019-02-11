@@ -25,3 +25,11 @@ Display
 Price
 =====
 [ ] Value object
+
+
+
+Console Display
+===============
+[ ] Price
+[ ] Product not found
+[ ] Empty barcode

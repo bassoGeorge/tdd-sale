@@ -9,7 +9,6 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,7 +34,7 @@ public class LearnHowToHighjackSoutTest {
 
         assertEquals(
                 Collections.singletonList("Hello World!"),
-                lines(canvas.toString("UTF-8"))
+                TextUtilities.lines(canvas.toString("UTF-8"))
         );
     }
 
@@ -49,11 +48,8 @@ public class LearnHowToHighjackSoutTest {
 
         assertEquals(
                 Arrays.asList("Hello World!", "This is George"),
-                lines(canvas.toString("UTF-8"))
+                TextUtilities.lines(canvas.toString("UTF-8"))
         );
     }
 
-    private List<String> lines(String text) {
-        return Arrays.asList(text.split("\\r?\\n"));
-    }
 }

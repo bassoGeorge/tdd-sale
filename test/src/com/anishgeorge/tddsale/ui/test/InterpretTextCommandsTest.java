@@ -35,6 +35,19 @@ public class InterpretTextCommandsTest {
         new TextCommandInterpreter(barcodeScannedListener).process(new StringReader("::barcode::\n"));
     }
 
+    @Test
+    public void severalBarcodes() throws IOException {
+        BarcodeScannedListener barcodeScannedListener = context.mock(BarcodeScannedListener.class);
+        context.checking(new Expectations() {{
+            oneOf(barcodeScannedListener).onBarcode("::barcode 1::");
+            oneOf(barcodeScannedListener).onBarcode("::barcode 2::");
+            oneOf(barcodeScannedListener).onBarcode("::barcode 3::");
+        }});
+
+        String input = "::barcode 1::\n::barcode 2::\n::barcode 3::\n";
+        new TextCommandInterpreter(barcodeScannedListener).process(new StringReader(input));
+    }
+
     public interface BarcodeScannedListener {
         void onBarcode(String barcode);
     }
@@ -47,10 +60,8 @@ public class InterpretTextCommandsTest {
         }
 
         public void process(Reader stringReader) throws IOException {
-            BufferedReader commandReader = new BufferedReader(stringReader);
-            String line = commandReader.readLine();
-            if (line != null) {
-                barcodeScannedListener.onBarcode(line);
+            try (BufferedReader commandReader = new BufferedReader(stringReader)) {
+                commandReader.lines().forEach(barcodeScannedListener::onBarcode);
             }
         }
     }
